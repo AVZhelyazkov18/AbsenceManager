@@ -5,14 +5,14 @@
         <title>Absence Manager</title>
         <link rel="icon" type="image/x-icon" href="../static/icons/absence.png">
         <link rel="stylesheet" href="/styles/MainMenuStyle.css">
+        <script src="/javascript/ShowHide.js    "></script>
     </head>
-    
     <body>
         <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#news">News</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li style="float:right"><a class="active" href="/login">Login</a></li>
+            <li th:if="${username} != null" th:onload="removeButton()" style="float:right"><a class="active" href="/login">Login</a></li>
         </ul>
     </body>
 </html>
