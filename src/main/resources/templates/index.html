@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Absence Manager</title>
         <link rel="icon" type="image/x-icon" href="../static/icons/absence.png">
         <link rel="stylesheet" href="/styles/MainMenuStyle.css">
-        <script src="/javascript/ShowHide.js    "></script>
     </head>
     <body>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#news">News</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li th:if="${username} != null" th:onload="removeButton()" style="float:right"><a class="active" href="/login">Login</a></li>
-        </ul>
+        <div class="navbar">
+            <a href="#home">Home</a>
+            <a href="#news">News</a>
+            <a href="/login" th:if="${username == null}" style="float: right">Log In</a>
+            <div th:if="${username != null}" style="float: right" class="dropdown">
+                <button class="dropbtn" th:text="${username}">
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#">Teams</a>
+                    <a href="#">Roles</a>
+                    <a href="#">Projects</a>
+                    <a href="/">Log Out</a>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
