@@ -19,12 +19,25 @@ public class UserController {
             Integer ans = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM USERS WHERE Username=? AND Password=?", new Object[]{username, password}, Integer.class);
             if (ans == 1) {
                 model.addAttribute("username", username);
+                model.addAttribute("password", password);
                 return "index";
             } else {
                 model.addAttribute("IsNotCorrect", true);
                 return "login";
             }
         }
+        return "index";
+    }
+
+    @GetMapping("/teams")
+    public String Page2(@RequestParam(name="username", required = true) String username, @RequestParam(name="password", required = true) String password, Model model){
+        model.addAttribute("username", username);
+        Integer PlayerRoleId = jdbcTemplate.queryForObject("SELECT ROLEID FROM USERS WHERE USERNAME=? AND PASSWORD=?", new Object[]{username, password}, Integer.class);
+        Boolean canGoInTeams = jdbcTemplate.queryForObject("SELECT TEAMSEDITALLOWED FROM ROLES WHERE ROLEID=?", new Object[]{PlayerRoleId}, Boolean.class);
+        if (canGoInTeams) {
+            return "teams";
+        }
+        model.addAttribute("IsNotCorrect", true);
         return "index";
     }
 

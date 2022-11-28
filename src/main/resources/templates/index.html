@@ -4,6 +4,7 @@
     <head>
         <title>Absence Manager</title>
         <link rel="icon" type="image/x-icon" href="../static/icons/absence.png">
+        <link rel="stylesheet" href="/src/main/resources/static/styles/MainMenuStyle.css">
         <link rel="stylesheet" href="/styles/MainMenuStyle.css">
     </head>
     <body>
@@ -16,12 +17,16 @@
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
-                    <a href="#">Teams</a>
-                    <a href="#">Roles</a>
+                    <a th:href="@{/teams(username=${username},password=${password})}">Teams</a>
+                    <a href="#">Users</a>
                     <a href="#">Projects</a>
                     <a href="/">Log Out</a>
                 </div>
             </div>
+        </div>
+        <div th:if="${IsNotCorrect == true}">
+            </br>
+            <p3 style="text-align: center; color: red">Not allowed to access this page.</p3>
         </div>
     </body>
 </html>

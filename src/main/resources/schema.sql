@@ -1,26 +1,26 @@
-
 CREATE TABLE Roles
 (
-    id int not null auto_increment,
+    roleid int not null auto_increment,
     rolename varchar(80) not null,
-    PRIMARY KEY(id)
+    teamseditallowed bit not null,
+    userseditallowed bit not null,
+    projectseditallowed bit not null,
+    PRIMARY KEY(roleid)
 );
 
 CREATE TABLE Projects
 (
-    id int not null auto_increment,
-    name varchar(80) not null,
-    description varchar(600) not null,
-    PRIMARY KEY(id)
+    projectid int not null auto_increment,
+    projectname varchar(80) not null,
+    projectdescription varchar(600) not null,
+    PRIMARY KEY(projectid)
 );
 
 CREATE TABLE Teams
 (
-    id int NOT NULL auto_increment,
+    teamid int NOT NULL auto_increment,
     teamname varchar(80) NOT NULL,
-    workers varchar(80) NULL,
-    leader int NULL,
-    PRIMARY KEY(id)
+    PRIMARY KEY(teamid)
 );
 
 
@@ -31,14 +31,20 @@ CREATE TABLE Users (
     firstname varchar(255) not null,
     lastname varchar(255) not null,
     roleid int null,
-    teamid int null,
     PRIMARY KEY(userid),
-    foreign key (roleid) references Roles(id)
+    foreign key (roleid) references Roles(roleid)
 );
 
-CREATE TABLE UserInTeam (
+CREATE TABLE DeveloperInTeam (
     userid int NOT NULL,
     teamid int NOT NULL,
-    foreign key (teamid) references Teams(id),
+    foreign key (teamid) references Teams(teamid),
     foreign key (userid) references Users(userid)
-)
+);
+
+CREATE TABLE TeamLeaderOfTeam (
+    leaderid int not null,
+    teamid int not null,
+    foreign key (leaderid) references Users(userid),
+    foreign key (teamid) references Teams(teamid)
+);
